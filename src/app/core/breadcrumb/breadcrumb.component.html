@@ -1,0 +1,29 @@
+<ul class="breadcrumb">
+    <li class="item" *ngFor="let route of routes">
+        <div class="icon" *ngIf="route.icon">
+            <fundae-icon [icon]="route.icon"></fundae-icon>
+        </div>
+
+        <ng-container *ngIf="route.url; then link; else noLink"></ng-container>
+
+        <ng-template #link>
+            <a
+                class="link"
+                [routerLink]="route.url"
+                [ngClass]="{'active': route.url === routes[routes.length - 1].url}"
+            >
+                {{ route.name }}
+            </a>
+        </ng-template>
+
+        <ng-template #noLink>
+            <div class="link" [ngClass]="{'active': route.url === routes[routes.length - 1].url}">
+                {{ route.name }}
+            </div>
+        </ng-template>
+
+        <div class="icon arrow">
+            <fundae-icon [icon]="icon" style="color: #979797;"></fundae-icon>
+        </div>
+    </li>
+</ul>
