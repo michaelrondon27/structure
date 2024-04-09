@@ -19,6 +19,7 @@ import { FundaeIconModule } from "../icon/icon.module";
     exports: [
         FormsModule,
         InputComponent,
+        CommonModule,
         ReactiveFormsModule
     ],
     providers: [

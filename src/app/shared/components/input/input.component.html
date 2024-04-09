@@ -1,9 +1,4 @@
-<div
-    class="form-field-input"
-    [ngClass]="{
-        'has-errors': errors.length && (control.dirty || control.touched),
-        'has-prefix':
-    }"
->
+<div class="form-field-input"
+[ngClass]="{'has-errors': errors.length && (control.dirty || control.touched),'has-prefix': }">
 
 </div>

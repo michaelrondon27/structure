@@ -1,0 +1,19 @@
+<div class="section">
+    <p>Simple</p>
+    <fundae-img [src]="'https://cdn.pixabay.com/photo/2023/11/12/17/12/puppy-8383633_1280.jpg'"></fundae-img>
+</div>
+<div class="section">
+    <p>Default image on error</p>
+    <fundae-img [src]="'https://cdn.pixabay.com/photo/2023/11/12/17/12/puppy.png'"></fundae-img>
+</div>
+<div class="section">
+    <p>Default image on error CUSTOM</p>
+    <fundae-img
+        [defaultImage]="'https://t1.uc.ltmcdn.com/es/posts/8/3/2/como_saber_si_mi_gato_tiene_sida_25238_600.jpg'"
+        [src]="'https://cdn.pixabay.com/photo/2023/11/12/17/12/puppy.png'"></fundae-img>
+</div>
+<div class="section">
+    <p>Default image on error DISABLED</p>
+    <fundae-img [disableDefaultImage]="true"
+        [src]="'https://cdn.pixabay.com/photo/2023/11/12/17/12/puppy.png'"></fundae-img>
+</div>
