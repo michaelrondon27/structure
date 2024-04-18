@@ -1,6 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { faChevronRight, faCoffee } from '@fortawesome/free-solid-svg-icons';
+import { fas } from '@fortawesome/free-solid-svg-icons';
 
 // Interfaces
 import { Icon } from '@shared/interfaces/icon.interface';
@@ -11,9 +11,9 @@ import { Icon } from '@shared/interfaces/icon.interface';
     styleUrls: ['./icon.component.scss']
 })
 
-export class IconComponent implements OnInit {
+export class IconComponent {
 
-    @Input() public icon?: Icon;
+    @Input() public icon: Icon;
 
     constructor(
         faIconLibrary: FaIconLibrary
@@ -21,17 +21,12 @@ export class IconComponent implements OnInit {
         this.addIcons(faIconLibrary);
     }
 
-    ngOnInit(): void {
-        if (!this.icon) {
-            throw Error('Icon property require');
-        }
-    }
-
+    /**
+     * Function that allows to add the icons packages that we will need on the app
+     * @param faIconLibrary icon library
+     */
     private addIcons(faIconLibrary: FaIconLibrary): void {
-        faIconLibrary.addIcons(
-            faChevronRight,
-            faCoffee
-        );
+        faIconLibrary.addIconPacks(fas);
     }
 
 }

@@ -1,0 +1,31 @@
+header {
+    background: url('../../../../../../assets/media/tests/header.png');
+    background-attachment: fixed;
+    background-size: cover;
+    border-radius: 0 0 85% 85% / 30%;
+    height: auto;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    width: 100%;
+
+    .overlay {
+        background-color: rgba(0, 0, 0, 0.3);
+        color: #FFFFFF;
+        height: 100%;
+        padding: 5px;
+        text-shadow: 1px 1px 1px #333;
+        width: 100%;
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 80px;
+            margin-bottom: 30px;
+        }
+
+        h3, p {
+            font-family: 'Dancing Script', 'Open Sans', sans-serif;
+            margin-bottom: 30px;
+        }
+    }
+}

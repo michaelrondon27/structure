@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
     selector: 'fundae-img',
@@ -6,18 +6,14 @@ import { Component, Input, OnInit } from '@angular/core';
     styleUrls: ['./img.component.scss']
 })
 
-export class ImgComponent implements OnInit {
+export class ImgComponent {
 
-    @Input() public src: string;
-    @Input() public loading: 'eager' | 'lazy' = 'eager';
     @Input() public disableDefaultImage: boolean = false;
+    @Input() public loading: 'eager' | 'lazy' = 'eager';
+    @Input() public src: string;
 
     @Input() public defaultImage: string = '/assets/media/shared/error.png';
 
     constructor() { }
-
-    ngOnInit(): void {
-
-    }
 
 }

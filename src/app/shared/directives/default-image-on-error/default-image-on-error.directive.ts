@@ -4,16 +4,20 @@ import { Directive, HostListener, Input, NgModule } from '@angular/core';
   selector: '[showDefaultOnError]'
 })
 export class DefaultImageOnErrorDirective {
-  @Input() defaultImageOnError: string;
+    @Input() defaultImageOnError: string;
 
-  @HostListener('error', ['$event'])
-  handleError(event: ErrorEvent): void {
-    (event.target as HTMLImageElement).src = this.defaultImageOnError;
-  }
+    @HostListener('error', ['$event'])
+    handleError(event: ErrorEvent): void {
+        (event.target as HTMLImageElement).src = this.defaultImageOnError;
+    }
 }
 
 @NgModule({
-  exports: [DefaultImageOnErrorDirective],
-  declarations: [DefaultImageOnErrorDirective],
+    declarations: [
+        DefaultImageOnErrorDirective
+    ],
+    exports: [
+        DefaultImageOnErrorDirective
+    ]
 })
 export class DefaultImageOnErrorDirectiveModule {}

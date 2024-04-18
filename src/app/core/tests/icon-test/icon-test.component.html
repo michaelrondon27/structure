@@ -1,1 +1,43 @@
-<p>icon-test works!</p>
+<test-nav-bar title="Icons"></test-nav-bar>
+
+<div class="container-fluid icon-test-layout">
+    <div class="row">
+        <div class="col-3 border-end pt-4 overflow-auto" style="height: 100vh;">
+            <h4>Component Specifications</h4>
+
+            <hr>
+
+            <ul class="list-group my-3">
+                <li
+                    class="list-group-item"
+                    *ngFor="let info of componentInformation | keyvalue"
+                >
+                    <div class="text-justify">
+                        <p><strong>{{ info.key }}</strong></p>
+
+                        <pre>{{ info.value | json }}</pre>
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="col-9 overflow-auto" style="height: 100vh;">
+            <div class="row">
+                <div class="col-3 my-1" *ngFor="let icon of fontAwesomeIcons">
+                    <div class="card">
+                        <fundae-icon
+                            class="cards-icons rounded-circle"
+                            [icon]="icon"
+                        ></fundae-icon>
+
+                        <div class="card-body mt-5 text-center">
+                            <p><strong>Icon name:</strong> <br> {{ icon.name }}</p>
+                            <p><strong>Icon type:</strong> {{ icon.type }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

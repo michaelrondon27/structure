@@ -1,2 +1,13 @@
-<img *ngIf="disableDefaultImage" [src]="src" [loading]="loading"  />
-<img *ngIf="!disableDefaultImage" showDefaultOnError [defaultImageOnError]="defaultImage" [src]="src" [loading]="loading"  />
+<img
+    *ngIf="disableDefaultImage"
+    [src]="src"
+    [loading]="loading"
+/>
+
+<img
+    *ngIf="!disableDefaultImage"
+    showDefaultOnError
+    [defaultImageOnError]="defaultImage"
+    [src]="src"
+    [loading]="loading"
+/>

@@ -14,11 +14,12 @@ const componentModules = [
 
 
 @NgModule({
-    declarations: [],
     imports: [
         ...componentModules,
         CommonModule
     ],
-    exports: [...componentModules]
+    exports: [
+        ...componentModules
+    ]
 })
 export class FundaeComponentsModule { }
