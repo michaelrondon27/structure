@@ -12,7 +12,7 @@ export class LayoutTestService {
         {
             id: 'button',
             image: 'assets/media/tests/button.png',
-            route: '',
+            route: 'buttons',
             title: 'Button'
         },
         {

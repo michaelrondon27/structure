@@ -1,15 +1,21 @@
 import { Component } from '@angular/core';
 
+// Interfaces
+import { CustomComponentInformation } from '@shared/interfaces/custom-component.interface';
+
 @Component({
-  selector: 'app-button-test',
-  templateUrl: './button-test.component.html',
-  styleUrl: './button-test.component.css'
+    selector: 'tests-button',
+    templateUrl: './button-test.component.html',
+    styleUrls: [
+        './button-test.component.scss'
+    ]
 })
 export class ButtonTestComponent {
 
-  clicks = 0;
+    public componentInformation: CustomComponentInformation = {
+        selectorName: 'fundae-button'
+    }
 
-  buttonClicked() {
-    this.clicks++;
-  }
+    constructor() { }
+
 }

@@ -5,3 +5,28 @@
     padding: 0;
     box-sizing: border-box;
 }
+
+.scrollbar {
+    overflow: auto;
+    padding: 0 10px;
+}
+
+.scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+
+.scrollbar::-webkit-scrollbar-track {
+    border-radius: 8px;
+    background-color: #e7e7e7;
+    border: 1px solid #cacaca;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    background: -webkit-linear-gradient(#662D8C, #ED1E79);
+}
+
+.full-height {
+    height: calc(100vh - 58px);
+}
+

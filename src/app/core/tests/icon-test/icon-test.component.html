@@ -1,30 +1,17 @@
 <test-nav-bar title="Icons"></test-nav-bar>
 
-<div class="container-fluid icon-test-layout">
+<div class="container-fluid">
     <div class="row">
-        <div class="col-3 border-end pt-4 overflow-auto" style="height: 100vh;">
-            <h4>Component Specifications</h4>
-
-            <hr>
-
-            <ul class="list-group my-3">
-                <li
-                    class="list-group-item"
-                    *ngFor="let info of componentInformation | keyvalue"
-                >
-                    <div class="text-justify">
-                        <p><strong>{{ info.key }}</strong></p>
-
-                        <pre>{{ info.value | json }}</pre>
-                    </div>
-
-                </li>
-            </ul>
+        <div class="col-3 border-end pt-4 full-height scrollbar">
+            <tests-component-specifications
+                [componentInformation]="componentInformation"
+                [interfacesInformation]="interfacesInformation"
+            ></tests-component-specifications>
         </div>
 
-        <div class="col-9 overflow-auto" style="height: 100vh;">
+        <div class="col-6 scrollbar overflow-x-hidden pb-3 full-height">
             <div class="row">
-                <div class="col-3 my-1" *ngFor="let icon of fontAwesomeIcons">
+                <div class="col-4 my-1" *ngFor="let icon of fontAwesomeIcons">
                     <div class="card">
                         <fundae-icon
                             class="cards-icons rounded-circle"
@@ -38,6 +25,34 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div class="col-3 border-start pt-4 scrollbar full-height">
+            <h4>Usage Example</h4>
+
+            <ul class="list-group my-3">
+                <li class="list-group-item">
+                    <p><strong>Component:</strong></p>
+
+                    <div class="text-center">
+                        <fundae-icon
+                            [icon]="icon"
+                        ></fundae-icon>
+                    </div>
+
+                    <pre>{{ componentUsageExample }}</pre>
+                </li>
+            </ul>
+
+            <hr>
+
+            <ul class="list-group my-3">
+                <li class="list-group-item">
+                    <p><strong>Icon variable:</strong></p>
+
+                    <pre>{{ icon | json }}</pre>
+                </li>
+            </ul>
         </div>
     </div>
 </div>

@@ -1,17 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterContentInit, Component } from '@angular/core';
 import * as fontAwesomeIcons from '@fortawesome/free-solid-svg-icons';
 import { IconName, IconPrefix } from '@fortawesome/free-solid-svg-icons';
 
 // Interfaces
+import {
+    CustomComponentInformation,
+    CustomInterfaceInformation
+} from '@shared/interfaces/custom-component.interface';
 import { Icon } from '@shared/interfaces/icon.interface';
-
-interface CustomComponentInformation {
-    inputs: [{
-        interface: string;
-        property: string;
-    }],
-    selectorName: string;
-}
 
 @Component({
     selector: 'tests-icon',
@@ -20,22 +16,50 @@ interface CustomComponentInformation {
         './icon-test.component.scss'
     ]
 })
-export class IconTestComponent implements OnInit {
+export class IconTestComponent implements AfterContentInit {
 
     public componentInformation: CustomComponentInformation = {
         inputs: [
             {
-                interface: 'Icon',
-                property: 'icon'
+                property: 'icon',
+                type: 'Icon'
             }
         ],
         selectorName: 'fundae-icon'
     };
+    public componentUsageExample: string = `
+        <fundae-icon
+            [icon]="icon"
+        ></fundae-icon>
+    `;
     public fontAwesomeIcons: Icon[] = [];
+    public icon: Icon = {
+        animation: 'fade',
+        border: true,
+        flip: 'horizontal',
+        size: '2x',
+        name: 'person-skiing',
+        type: 'fas'
+    };
+    public interfacesInformation: CustomInterfaceInformation[] = [
+        {
+            name: 'Icon',
+            properties: [
+                'animation?: AnimationProp',
+                'border?: boolean',
+                'flip?: FlipProp',
+                'name: IconName',
+                'pull?: PullProp',
+                'rotate?: RotateProp',
+                'size?: SizeProp',
+                'type: IconPrefix'
+            ]
+        }
+    ];
 
     constructor() { }
 
-    ngOnInit(): void {
+    ngAfterContentInit(): void {
         this.setIcons();
     }
 

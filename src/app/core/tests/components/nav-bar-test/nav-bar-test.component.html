@@ -1,11 +1,17 @@
-<nav class="navbar bg-body-tertiary border-body fixed-top">
+<nav class="navbar navbar-bg border-body">
     <div class="container-fluid">
-        <fundae-icon
+        <div
+            class="link"
             routerLink="/test"
-            [icon]="icon"
-        ></fundae-icon>
+        >
+            <fundae-icon [icon]="icon"></fundae-icon>
 
-        {{ title }}
+            Back
+        </div>
+
+        <div class="fs-3">
+            {{ title }}
+        </div>
 
         <div></div>
     </div>

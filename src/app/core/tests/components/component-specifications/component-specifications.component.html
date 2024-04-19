@@ -1,0 +1,30 @@
+<h5>Component Specifications</h5>
+
+<ul class="list-group my-3">
+    <li class="list-group-item">
+        <p><strong>Selector name:</strong> {{ componentInformation.selectorName }}</p>
+    </li>
+
+    <li class="list-group-item">
+        <p><strong>Inputs:</strong></p>
+
+        <pre>{{ componentInformation.inputs | json }}</pre>
+    </li>
+</ul>
+
+<hr>
+
+<h5>Interfaces</h5>
+
+<ul class="list-group my-3">
+    <li
+        class="list-group-item"
+        *ngFor="let interface of interfacesInformation"
+    >
+        <p><strong>{{ interface.name }}</strong></p>
+
+        <div *ngFor="let property of interface.properties">
+            {{ property }}
+        </div>
+    </li>
+</ul>
