@@ -406,3 +406,14 @@
   color: red;
   --color: red;
 }
+
+.card {
+    border-radius: 6px;
+    box-shadow: 0 .25rem .25rem rgba(0, 0, 0, 0.2), 0 0 1rem rgba(0, 0, 0, 0.2);
+
+    .cards-icons {
+        background: -webkit-linear-gradient(#662D8C, #ED1E79);
+        padding-top: -10%;
+        -webkit-text-fill-color: transparent;
+    }
+}

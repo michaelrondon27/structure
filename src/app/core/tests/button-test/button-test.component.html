@@ -2,8 +2,33 @@
 
 <div class="container-fluid test-layout">
     <div class="row">
-        <div class="col-3 border-end pt-4 overflow-auto full-height">
+        <div class="col-3 border-end pt-4 overflow-auto full-height scrollbar">
+            <tests-component-specifications
+                [componentInformation]="componentInformation"
+                [interfacesInformation]="interfacesInformation"
+                [typesInformation]="typesInformation"
+            ></tests-component-specifications>
+        </div>
 
+        <div class="col-6 scrollbar overflow-x-hidden pb-3 full-height">
+            <div class="row">
+                <div class="col-6 my-1" *ngFor="let button of buttons">
+                    <div class="card">
+                        <div class="text-center mt-2">
+                            <fundae-button
+                                [buttonType]="button.buttonType"
+                                [icon]="button?.icon"
+                                [name]="button.name"
+                            ></fundae-button>
+                        </div>
+
+                        <div class="card-body text-center">
+                            <p><strong>Button type:</strong> {{ button.buttonType }}</p>
+                            <p><strong>Name:</strong> {{ button.name }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

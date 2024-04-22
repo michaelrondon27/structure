@@ -7,11 +7,12 @@ export interface CustomComponent {
 }
 
 export interface CustomComponentInformation {
-    inputs?     : CustomInputsComponent[],
+    inputs?     : CustomInputsOutputsComponent[],
+    outputs?    : CustomInputsOutputsComponent[],
     selectorName: string;
 }
 
-interface CustomInputsComponent {
+interface CustomInputsOutputsComponent {
     property: string;
     type    : string;
 }
@@ -19,4 +20,9 @@ interface CustomInputsComponent {
 export interface CustomInterfaceInformation {
     name      : string;
     properties: string[];
+}
+
+export interface CustomTypesInformation {
+    name  : string;
+    values: string[];
 }

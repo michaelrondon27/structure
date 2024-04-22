@@ -3,7 +3,8 @@ import { Component, Input } from '@angular/core';
 // Interfaces
 import {
     CustomComponentInformation,
-    CustomInterfaceInformation
+    CustomInterfaceInformation,
+    CustomTypesInformation
 } from '@shared/interfaces/custom-component.interface';
 
 @Component({
@@ -17,7 +18,8 @@ import {
 export class ComponentSpecificationsComponent {
 
     @Input() public componentInformation: CustomComponentInformation;
-    @Input() public interfacesInformation: CustomInterfaceInformation[];
+    @Input() public interfacesInformation: CustomInterfaceInformation[] = [];
+    @Input() public typesInformation: CustomTypesInformation[] = [];
 
     constructor() { }
 

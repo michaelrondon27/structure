@@ -5,26 +5,55 @@
         <p><strong>Selector name:</strong> {{ componentInformation.selectorName }}</p>
     </li>
 
-    <li class="list-group-item">
+    <li class="list-group-item scrollbar" *ngIf="componentInformation.inputs">
         <p><strong>Inputs:</strong></p>
 
         <pre>{{ componentInformation.inputs | json }}</pre>
     </li>
-</ul>
 
-<hr>
+    <li class="list-group-item scrollbar" *ngIf="componentInformation.outputs">
+        <p><strong>Outputs:</strong></p>
 
-<h5>Interfaces</h5>
-
-<ul class="list-group my-3">
-    <li
-        class="list-group-item"
-        *ngFor="let interface of interfacesInformation"
-    >
-        <p><strong>{{ interface.name }}</strong></p>
-
-        <div *ngFor="let property of interface.properties">
-            {{ property }}
-        </div>
+        <pre>{{ componentInformation.outputs | json }}</pre>
     </li>
 </ul>
+
+<div *ngIf="interfacesInformation.length">
+    <hr>
+
+    <h5>Interfaces</h5>
+
+    <ul class="list-group my-3">
+        <li
+            class="list-group-item"
+            *ngFor="let interface of interfacesInformation"
+        >
+            <p><strong>{{ interface.name }}</strong></p>
+
+            <div *ngFor="let property of interface.properties">
+                {{ property }}
+            </div>
+        </li>
+    </ul>
+</div>
+
+<div *ngIf="typesInformation.length">
+    <hr>
+
+    <h5>Types</h5>
+
+    <ul class="list-group my-3">
+        <li
+            class="list-group-item"
+            *ngFor="let type of typesInformation"
+        >
+            <p><strong>{{ type.name }}</strong></p>
+
+            <h6>Values</h6>
+
+            <div *ngFor="let value of type.values">
+                {{ value }}
+            </div>
+        </li>
+    </ul>
+</div>
