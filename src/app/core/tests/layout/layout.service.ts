@@ -25,7 +25,7 @@ export class LayoutTestService {
         {
             id: 'image',
             image: 'assets/media/tests/image.jpg',
-            route: '',
+            route: 'img',
             title: 'Image'
         }
     ];

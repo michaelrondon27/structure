@@ -1,19 +1,48 @@
-<div class="section">
-    <p>Simple</p>
-    <fundae-img [src]="'https://cdn.pixabay.com/photo/2023/11/12/17/12/puppy-8383633_1280.jpg'"></fundae-img>
-</div>
-<div class="section">
-    <p>Default image on error</p>
-    <fundae-img [src]="'https://cdn.pixabay.com/photo/2023/11/12/17/12/puppy.png'"></fundae-img>
-</div>
-<div class="section">
-    <p>Default image on error CUSTOM</p>
-    <fundae-img
-        [defaultImage]="'https://t1.uc.ltmcdn.com/es/posts/8/3/2/como_saber_si_mi_gato_tiene_sida_25238_600.jpg'"
-        [src]="'https://cdn.pixabay.com/photo/2023/11/12/17/12/puppy.png'"></fundae-img>
-</div>
-<div class="section">
-    <p>Default image on error DISABLED</p>
-    <fundae-img [disableDefaultImage]="true"
-        [src]="'https://cdn.pixabay.com/photo/2023/11/12/17/12/puppy.png'"></fundae-img>
+<test-nav-bar title="Image"></test-nav-bar>
+
+<div class="container-fluid test-layout">
+    <div class="row">
+        <div class="col-3 border-end pt-4 overflow-auto full-height scrollbar">
+            <tests-component-specifications
+                [componentInformation]="componentInformation"
+                [typesInformation]="typesInformation"
+            ></tests-component-specifications>
+        </div>
+
+        <div class="col-6 scrollbar overflow-x-hidden pb-3 full-height">
+            <div class="row text-center">
+                <div class="col-6 my-1" *ngFor="let img of imgs">
+                    <div class="card">
+                        <fundae-img
+                            [defaultImage]="img?.defaultImage"
+                            [disableDefaultImage]="img.disableDefaultImage"
+                            [src]="img.img"
+                        ></fundae-img>
+
+                        <div class="card-body">
+                            <p><strong>Img type:</strong> {{ img.type }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-3 border-start py-4 full-height">
+            <h4>Usage Example</h4>
+
+            <ul class="list-group my-3">
+                <li class="list-group-item">
+                    <p><strong>Component:</strong></p>
+
+                    <div class="text-center">
+                        <fundae-img
+                            src="https://cdn.pixabay.com/photo/2023/11/12/17/12/puppy-8383633_1280.jpg"
+                        ></fundae-img>
+                    </div>
+
+                    <pre class="scrollbar">{{ componentUsageExample }}</pre>
+                </li>
+            </ul>
+        </div>
+    </div>
 </div>

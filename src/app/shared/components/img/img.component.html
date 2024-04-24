@@ -1,4 +1,5 @@
 <img
+    class="img-fluid"
     *ngIf="disableDefaultImage"
     [src]="src"
     [loading]="loading"
@@ -7,6 +8,7 @@
 <img
     *ngIf="!disableDefaultImage"
     showDefaultOnError
+    class="img-fluid"
     [defaultImageOnError]="defaultImage"
     [src]="src"
     [loading]="loading"
