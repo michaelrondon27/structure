@@ -20,6 +20,7 @@ export class ButtonComponent implements OnInit, DoCheck {
 
     public classesToApply: string[] = [];
     public loadingIcon: Icon = {
+        animation: 'spin',
         name: 'circle-notch',
         type: 'fas'
     };

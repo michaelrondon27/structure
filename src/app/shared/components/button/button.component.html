@@ -5,20 +5,27 @@
     [type]="type"
     (click)="buttonClicked()"
 >
-    <fundae-icon
-        *ngIf="loading"
-        [icon]="loadingIcon"
-    ></fundae-icon>
+    <div class="inside-info">
+        <div
+            *ngIf="loading"
+            class="icon"
+            [ngClass]="[rounded || !name ? '' : 'margin-icon']"
+        >
+            <fundae-icon
+                [icon]="loadingIcon"
+            ></fundae-icon>
+        </div>
 
-    <div
-        *ngIf="icon"
-        class="icon"
-        [ngClass]="[buttonType, rounded || !name ? '' : 'margin-icon']"
-    >
-        <fundae-icon [icon]="icon"></fundae-icon>
+        <div
+            *ngIf="icon"
+            class="icon"
+            [ngClass]="[rounded || !name ? '' : 'margin-icon']"
+        >
+            <fundae-icon [icon]="icon"></fundae-icon>
+        </div>
+
+        <span *ngIf="name">{{ loading ? (loadingText || name) : name }}</span>
+
+        <ng-content *ngIf="!name"></ng-content>
     </div>
-
-    <span *ngIf="name">{{ loading ? (loadingText || name) : name }}</span>
-
-    <ng-content *ngIf="!name"></ng-content>
 </button>

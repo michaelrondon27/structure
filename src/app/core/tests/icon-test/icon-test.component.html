@@ -2,14 +2,14 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-3 border-end pt-4 full-height scrollbar">
+        <div class="col-3 border-end py-4 full-height">
             <tests-component-specifications
                 [componentInformation]="componentInformation"
                 [interfacesInformation]="interfacesInformation"
             ></tests-component-specifications>
         </div>
 
-        <div class="col-6 scrollbar overflow-x-hidden pb-3 full-height">
+        <div class="col-6 overflow-x-hidden pb-3 full-height">
             <div class="row">
                 <div class="col-4 my-1" *ngFor="let icon of fontAwesomeIcons">
                     <div class="card">
@@ -27,7 +27,7 @@
             </div>
         </div>
 
-        <div class="col-3 border-start pt-4 scrollbar full-height">
+        <div class="col-3 border-start py-4 full-height">
             <h4>Usage Example</h4>
 
             <ul class="list-group my-3">
@@ -40,7 +40,7 @@
                         ></fundae-icon>
                     </div>
 
-                    <pre>{{ componentUsageExample }}</pre>
+                    <pre class="scrollbar">{{ componentUsageExample }}</pre>
                 </li>
             </ul>
 
@@ -50,7 +50,7 @@
                 <li class="list-group-item">
                     <p><strong>Icon variable:</strong></p>
 
-                    <pre>{{ icon | json }}</pre>
+                    <pre class="scrollbar">{{ icon | json }}</pre>
                 </li>
             </ul>
         </div>

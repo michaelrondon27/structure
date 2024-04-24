@@ -12,8 +12,12 @@ import { Icon } from '@shared/interfaces/icon.interface';
 import { ButtonTypes } from '@shared/types/button.type';
 
 interface ButtonsList {
+    buttonClick?: boolean;
     buttonType: ButtonTypes;
     icon?: Icon;
+    isDisabled?: boolean;
+    loading?: boolean;
+    loadingText?: string;
     name: string;
 }
 
@@ -38,8 +42,38 @@ export class ButtonTestComponent {
                 type: 'fab'
             },
             name: 'Secondary'
+        },
+        {
+            buttonType: 'btn-success',
+            isDisabled: true,
+            name: 'Success'
+        },
+        {
+            buttonType: 'btn-danger',
+            loading: true,
+            name: 'Danger'
+        },
+        {
+            buttonType: 'btn-warning',
+            loading: true,
+            loadingText: 'Sending',
+            name: 'Warning'
+        },
+        {
+            buttonClick: true,
+            buttonType: 'btn-info',
+            name: 'Info'
+        },
+        {
+            buttonType: 'btn-light',
+            name: 'Light'
+        },
+        {
+            buttonType: 'btn-dark',
+            name: 'Dark'
         }
     ];
+    public count: number = 0;
     public componentInformation: CustomComponentInformation = {
         inputs: [
             {
@@ -87,6 +121,17 @@ export class ButtonTestComponent {
         ],
         selectorName: 'fundae-button'
     }
+    public componentUsageExample: string = `
+        <fundae-button
+            buttonType="btn-primary"
+            [icon]="icon"
+            name="Test"
+        ></fundae-button>
+    `;
+    public icon: Icon = {
+        name: 'google-play',
+        type: 'fab'
+    };
     public interfacesInformation: CustomInterfaceInformation[] = [
         {
             name: 'Icon',
@@ -127,5 +172,10 @@ export class ButtonTestComponent {
     ];
 
     constructor() { }
+
+    handleButtonCLick(): void {
+        this.count++;
+        console.log(this.count);
+    }
 
 }

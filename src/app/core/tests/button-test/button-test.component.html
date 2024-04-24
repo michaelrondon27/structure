@@ -11,24 +11,63 @@
         </div>
 
         <div class="col-6 scrollbar overflow-x-hidden pb-3 full-height">
-            <div class="row">
+            <div class="row text-center">
                 <div class="col-6 my-1" *ngFor="let button of buttons">
                     <div class="card">
-                        <div class="text-center mt-2">
+                        <div class=" mt-2">
                             <fundae-button
                                 [buttonType]="button.buttonType"
-                                [icon]="button?.icon"
+                                [icon]="button.icon"
+                                [isDisabled]="button.isDisabled"
+                                [loading]="button.loading"
+                                [loadingText]="button.loadingText"
                                 [name]="button.name"
+                                (buttonClick)="(button.buttonClick) ? handleButtonCLick() : null"
                             ></fundae-button>
                         </div>
 
-                        <div class="card-body text-center">
+                        <div class="card-body">
                             <p><strong>Button type:</strong> {{ button.buttonType }}</p>
                             <p><strong>Name:</strong> {{ button.name }}</p>
+                            <p *ngIf="button.icon"><strong>Icon:</strong> {{ button.icon | json }}</p>
+                            <p *ngIf="button.isDisabled"><strong>Is disabled:</strong> {{ button.isDisabled }}</p>
+                            <p *ngIf="button.loading"><strong>Loading:</strong> {{ button.loading }}</p>
+                            <p *ngIf="button.loadingText"><strong>Loading text:</strong> {{ button.loadingText }}</p>
+                            <p *ngIf="button.buttonClick"><strong>Button click:</strong> Clicks count {{ count }}</p>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div class="col-3 scrollbar overflow-x-hidden border-start py-4 full-height">
+            <h4>Usage Example</h4>
+
+            <ul class="list-group my-3">
+                <li class="list-group-item">
+                    <p><strong>Component:</strong></p>
+
+                    <div class="text-center">
+                        <fundae-button
+                            buttonType="btn-primary"
+                            [icon]="icon"
+                            name="Test"
+                        ></fundae-button>
+                    </div>
+
+                    <pre class="scrollbar">{{ componentUsageExample }}</pre>
+                </li>
+            </ul>
+
+            <hr>
+
+            <ul class="list-group my-3">
+                <li class="list-group-item">
+                    <p><strong>Icon variable:</strong></p>
+
+                    <pre class="scrollbar">{{ icon | json }}</pre>
+                </li>
+            </ul>
         </div>
     </div>
 </div>

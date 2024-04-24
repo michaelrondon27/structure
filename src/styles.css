@@ -1,11 +1,5 @@
 @import url("./utils.scss");
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 .scrollbar {
     overflow: auto;
     padding: 0 10px;
@@ -13,6 +7,10 @@
 
 .scrollbar::-webkit-scrollbar {
     width: 5px;
+}
+
+.scrollbar::-webkit-scrollbar:horizontal {
+    height: 5px;
 }
 
 .scrollbar::-webkit-scrollbar-track {

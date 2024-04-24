@@ -1,6 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { fas } from '@fortawesome/free-solid-svg-icons';
+import { fab } from '@fortawesome/free-brands-svg-icons';
+import { far } from '@fortawesome/free-regular-svg-icons';
+import { IconPack, fas } from '@fortawesome/free-solid-svg-icons';
 
 // Interfaces
 import { Icon } from '@shared/interfaces/icon.interface';
@@ -26,7 +28,10 @@ export class IconComponent {
      * @param faIconLibrary icon library
      */
     private addIcons(faIconLibrary: FaIconLibrary): void {
+        faIconLibrary.addIconPacks(fab as IconPack);
+        faIconLibrary.addIconPacks(far as IconPack);
         faIconLibrary.addIconPacks(fas);
+
     }
 
 }

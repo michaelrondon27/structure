@@ -1,8 +1,13 @@
-.icon {
-    height: 16px;
-    width: 16px;
+button {
+    .inside-info {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+    }
 
-    &.margin-icon {
-        margin-right: 8px
+    .icon {
+        &.margin-icon {
+            margin-right: 8px
+        }
     }
 }
