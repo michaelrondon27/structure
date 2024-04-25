@@ -6,7 +6,7 @@ img {
     border-radius: 6px;
     box-shadow: 0 .25rem .25rem rgba(0, 0, 0, 0.2), 0 0 1rem rgba(0, 0, 0, 0.2);
     cursor: pointer;
-    height: 60vh;
+    max-height: 60vh;
     overflow: hidden;
     padding: 2rem;
     position: relative;

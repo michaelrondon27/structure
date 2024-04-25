@@ -27,6 +27,12 @@ export class LayoutTestService {
             image: 'assets/media/tests/image.jpg',
             route: 'img',
             title: 'Image'
+        },
+        {
+            id: 'input',
+            image: 'assets/media/tests/input.png',
+            route: 'input',
+            title: 'Input'
         }
     ];
 

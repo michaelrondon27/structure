@@ -1,6 +1,6 @@
 import { AfterContentInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, forwardRef } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
-import { FormControl, FormControlStatus, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { AbstractControl, ControlValueAccessor, FormControlStatus, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { takeUntil } from 'rxjs';
 
 // Auto Destroy
@@ -8,6 +8,9 @@ import { AutoDestroy } from '@shared/auto-destroy/auto-destroy.service';
 
 // Interfaces
 import { Icon } from '@shared/interfaces/icon.interface';
+
+// Types
+import { InputType } from '@shared/types/input.type';
 
 // Next code was made following the next post aobut how to manage formControlName inside components
 // https://stackoverflow.com/questions/39661430/angular-2-formcontrolname-inside-component
@@ -17,18 +20,16 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
     useExisting: forwardRef(() => InputComponent)
 }
 
-type AppearanceType = 'classic' | 'outline';
-
-type InputType = 'number' | 'password' | 'text';
-
 @Component({
     selector: 'fundae-input',
     templateUrl: 'input.component.html',
-    styleUrls: ['./input.component.scss'],
+    styleUrls: [
+        './input.component.scss'
+    ],
     providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
 })
 
-export class InputComponent extends AutoDestroy implements OnInit, AfterContentInit {
+export class InputComponent extends AutoDestroy implements ControlValueAccessor, OnInit, AfterContentInit {
 
     // Input count for id and label "for", increase by 1 when instance a new InputComponent, to avoid passing always the inputId prop
     static inputCount: number = 0;
@@ -36,14 +37,13 @@ export class InputComponent extends AutoDestroy implements OnInit, AfterContentI
     public errors: string[] = [];
     public innerValue: any = '';
 
-    private decimalMark: string = ',';
+    private decimalMark: ',' | '.' = ',';
     private htmlElement?: HTMLInputElement;
     private previousValue: any;
+    private touched = false;
 
-    @Input() addon: any;
-    @Input() appearence: AppearanceType = 'classic';
-    @Input() autoFocus: boolean | string = false;
-    @Input() control: FormControl = new FormControl();
+    @Input() autofocus: boolean | string = false;
+    @Input() control: AbstractControl<any, any>;
     @Input() decimalsNumber: number = 2;
     @Input() defaultValue: any;
     @Input() disabled: boolean = false;
@@ -55,14 +55,13 @@ export class InputComponent extends AutoDestroy implements OnInit, AfterContentI
     @Input() max?: number;
     @Input() min?: number;
     @Input() noLabel: boolean | string = false;
-    @Input() outlineText?: string;
-    @Input() placeholder?: string;
+    @Input() placeholder?: string = '';
     @Input() prefixIcon?: Icon;
     @Input() readonly: boolean = false;
     @Input() required: boolean | string = false;
     @Input() step?: number;
     @Input() suffixIcon?: Icon;
-    @Input() title?: string;
+    @Input() title: string;
 
     @Output() suffixClick: EventEmitter<void> = new EventEmitter<void>();
 
@@ -76,21 +75,20 @@ export class InputComponent extends AutoDestroy implements OnInit, AfterContentI
     }
 
     ngOnInit(): void {
-        this.innerValue = this.control.value || this.innerValue;
-        this.title = this.title || this.outlineText;
-        this.autoFocus = this.autoFocus === '' || this.autoFocus;
+        this.innerValue = this.control?.value || this.innerValue;
+        this.autofocus = this.autofocus === '' || this.autofocus;
         this.noLabel = this.noLabel === '' || this.noLabel;
 
-        this.htmlElement = this.inputRef?.nativeElement;
-        this.htmlElement!.value = this.control ? this.control.value : this.innerValue;
+        this.htmlElement = this.inputRef.nativeElement;
+        this.htmlElement.value = this.control ? this.control.value : this.innerValue;
 
-        this.control.statusChanges.pipe(
+        this.control?.statusChanges.pipe(
             takeUntil(this.destroyed$)
         ).subscribe((status: FormControlStatus) => {
-            console.log(status);
-            // if (status === 'TOUCHED') {
-            //     this.manageErrors();
-            // }
+            this.markAsTouched();
+            if (status === 'INVALID' && this.control?.touched) {
+                this.manageErrors();
+            }
         });
 
         if (this.required === '') {
@@ -99,8 +97,8 @@ export class InputComponent extends AutoDestroy implements OnInit, AfterContentI
     }
 
     ngAfterContentInit(): void {
-        if (this.innerValue) {
-            this.innerValue = this.inputType === 'number' ? parseFloat(this.defaultValue) : this.defaultValue;
+        if (this.defaultValue) {
+            this.innerValue = this.inputType === 'number' ? this.transformWithPipe(parseFloat(this.defaultValue).toString()) : this.defaultValue;
         }
     }
 
@@ -126,9 +124,9 @@ export class InputComponent extends AutoDestroy implements OnInit, AfterContentI
      * Convert string to number
      * @param
      */
-    private convertStrToDecimal(str: string): number {
-        const strWithDot = str.replace(this.decimalMark, '.');
-        return (this.isNumeric(strWithDot)) ? parseFloat(strWithDot) : 0;
+    private convertStrToDecimal(str: string): number | null {
+        const strWithDot = this.decimalMark === '.' ? str : str.replace(',', '.');
+        return (this.isNumeric(strWithDot)) ? parseFloat(strWithDot) : null;
     }
 
     /**
@@ -136,7 +134,7 @@ export class InputComponent extends AutoDestroy implements OnInit, AfterContentI
      * @param value
      */
     private getNonFormattedValue(value: string): string {
-        return value.replace(/[^-\d\\.]/g, '');
+        return this.decimalMark === '.' ? value.replace(/[^-\d\\.]/g, '') : value.replace(/[^-\d\\,]/g, '');
     }
 
     /**
@@ -145,7 +143,7 @@ export class InputComponent extends AutoDestroy implements OnInit, AfterContentI
      */
     handleFocus(event: any) {
         if (this.inputType === 'number' && this.formatNumber) {
-            const strVal: string = this.htmlElement!.value;
+            const strVal: string = this.htmlElement.value;
             const unmaskedStr: string = this.getNonFormattedValue(strVal);
             this.updateInputValue(unmaskedStr);
         }
@@ -157,7 +155,7 @@ export class InputComponent extends AutoDestroy implements OnInit, AfterContentI
      */
     handleKeyPress(event: any): void {
         if (this.inputType === 'number') {
-            const newChar: string =String.fromCharCode(event.which);
+            const newChar: string = String.fromCharCode(event.which);
 
             if (!this.isNewNumberInputValueValid(newChar)) {
                 event.preventDefault();
@@ -191,11 +189,10 @@ export class InputComponent extends AutoDestroy implements OnInit, AfterContentI
      * @param index
      */
     private isIndexBetweenSelection(index: number): boolean {
-        if (this.htmlElement!.selectionStart === this.htmlElement!.selectionEnd) {
+        if (this.htmlElement.selectionStart === this.htmlElement.selectionEnd) {
             return false;
         }
-
-        return (index >= this.htmlElement!.selectionStart! && index < this.htmlElement!.selectionEnd!);
+        return (index >= this.htmlElement.selectionStart && index < this.htmlElement.selectionEnd);
     }
 
     /**
@@ -207,7 +204,9 @@ export class InputComponent extends AutoDestroy implements OnInit, AfterContentI
             return true;
         }
 
-        const allowedChars: RegExp = (this.decimalsNumber) ? /^[-?\d.]+$/ : /^[-?\d]+$/;
+        const allowedChars: RegExp = (this.decimalsNumber)
+            ? this.decimalMark === '.' ? /^[-?\d.]+$/ : /^[-?\d,]+$/
+            : /^[-?\d]+$/;
 
         return allowedChars.test(newValue);
     }
@@ -221,10 +220,73 @@ export class InputComponent extends AutoDestroy implements OnInit, AfterContentI
     }
 
     /**
+     * Function to set the touched of the control to true
+     */
+    private markAsTouched(): void{
+        if(!this.touched){
+          this.touched = true;
+          this.onTouched();
+        }
+    }
+
+    /**
      * We loop into an array of errors and add the validation messages to show in the template
      */
     manageErrors = () => {
         this.errors = [];
+
+        if (this.control.errors) {
+            Object.entries(this.control.errors).forEach(([key, value]) => {
+                if (value) {
+                    switch (key) {
+                        case 'required':
+                            this.errors.push('field_required');
+                            break;
+                        case 'passwordValid':
+                            this.errors.push('password_characters_and_numbers');
+                            break;
+                        case 'whiteSpaces':
+                            this.errors.push('no_white_spaces');
+                            break;
+                        case 'passwordMatching':
+                            this.errors.push('passwords_need_to_match');
+                            break;
+                        case 'emailMatching':
+                            this.errors.push('emails_need_to_match');
+                            break;
+                        case 'email':
+                            this.errors.push('invalid_email');
+                            break;
+                        case 'minlength':
+                            this.errors.push('invalid_minlength');
+                            break;
+                        case 'maxlength':
+                            this.errors.push('invalid_maxlength');
+                            break;
+                        case 'minNumber':
+                        case 'min':
+                            this.errors.push('number_must_be_higher');
+                            break;
+                        case 'max':
+                            this.errors.push('number_must_be_lower');
+                            break;
+                        case 'pattern':
+                            this.errors.push('invalid_pattern');
+                            break;
+                        case 'minNumbersValidator':
+                        case 'minValidator':
+                        case 'minCapitalLettersValidator':
+                        case 'minSymbolsValidator':
+                        case 'emptyError':
+                            this.errors.push('');
+                            break;
+                        default:
+                            this.errors.push(this.control.errors[key]);
+                            break;
+                    }
+                }
+            });
+        }
     }
 
     /**
@@ -234,7 +296,7 @@ export class InputComponent extends AutoDestroy implements OnInit, AfterContentI
     onBlur(event: Event): void {
         if (event) {
             if (this.inputType === 'number' && this.formatNumber) {
-                const strVal: string = this.htmlElement!.value;
+                const strVal: string = this.htmlElement.value;
                 const numVal: number = this.convertStrToDecimal(strVal);
                 this.setFormattedInputValue(numVal);
             }
@@ -247,7 +309,7 @@ export class InputComponent extends AutoDestroy implements OnInit, AfterContentI
     onChange(event: Event, byUser?: boolean): void {
         if (this.inputType === 'number' && this.formatNumber) {
             this.restrictDecimalValue();
-            const strVal: string = this.htmlElement!.value;
+            const strVal: string = this.htmlElement.value;
             const unmaskedVal: string = this.getNonFormattedValue(strVal);
             const numVal: number = this.convertStrToDecimal(unmaskedVal);
 
@@ -268,7 +330,7 @@ export class InputComponent extends AutoDestroy implements OnInit, AfterContentI
                 this.writeValue(this.max, byUser);
             }
         } else {
-            this.writeValue(this.htmlElement!.value, byUser);
+            this.writeValue(this.htmlElement.value, byUser);
         }
 
         this.manageErrors();
@@ -280,6 +342,11 @@ export class InputComponent extends AutoDestroy implements OnInit, AfterContentI
     onSuffixClick(): void {
         this.suffixClick.emit();
     }
+
+    /**
+     * Function to set onTouched of the control
+     */
+    onTouched: any = () => {};
 
     /**
      * Function that will propagate the changes into the custom form control
@@ -299,13 +366,15 @@ export class InputComponent extends AutoDestroy implements OnInit, AfterContentI
      * registerOnTouched
      * @param fn
      */
-    registerOnTouched(fn: any): void { }
+    registerOnTouched(fn: any): void {
+        this.onTouched = fn;
+    }
 
     /**
      * Remove decimal numbers depending on the decimalsNumbers property
      */
     private restrictDecimalValue(): void {
-        const strVal: string = this.htmlElement!.value;
+        const strVal: string = this.htmlElement.value;
         const dotIdx: number = strVal.indexOf(this.decimalMark);
         const hasFractionalPart: boolean = (dotIdx >= 0);
 
@@ -324,7 +393,8 @@ export class InputComponent extends AutoDestroy implements OnInit, AfterContentI
      * Save cursor position
      */
     private saveCursorPosition(): void {
-        const position: number = this.htmlElement!.selectionStart || 0;
+        const position: number = this.htmlElement.selectionStart;
+
         setTimeout(() => {
             this.setCursorPosition(position);
         }, 1);
@@ -334,8 +404,8 @@ export class InputComponent extends AutoDestroy implements OnInit, AfterContentI
      * Set cursor position
      */
     private setCursorPosition(position: number): void {
-        this.htmlElement!.selectionStart = position;
-        this.htmlElement!.selectionEnd = position;
+        this.htmlElement.selectionStart = position;
+        this.htmlElement.selectionEnd = position;
     }
 
     /**
@@ -347,7 +417,6 @@ export class InputComponent extends AutoDestroy implements OnInit, AfterContentI
             this.updateInputValue('');
             return;
         }
-
         const strVal: string = this.convertDecimalToStr(numVal);
         const newVal: string = this.transformWithPipe(strVal);
 
@@ -359,7 +428,7 @@ export class InputComponent extends AutoDestroy implements OnInit, AfterContentI
      * @param str
      */
     private transformWithPipe(str: string): string {
-        return this.decimalPipe.transform(str, `1.${ this.decimalsNumber }-${ this.decimalsNumber }`) || '';
+        return this.decimalPipe.transform(str, `1.${ this.decimalsNumber }-${ this.decimalsNumber }`, 'es-ES') || '';
     }
 
     /**
@@ -372,7 +441,7 @@ export class InputComponent extends AutoDestroy implements OnInit, AfterContentI
             this.saveCursorPosition();
         }
 
-        this.htmlElement!.value = value;
+        this.htmlElement.value = value;
         this.innerValue = value;
     }
 

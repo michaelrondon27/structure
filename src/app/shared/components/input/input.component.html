@@ -1,4 +1,57 @@
-<!-- <div class="form-field-input"
-[ngClass]="{'has-errors': errors.length && (control.dirty || control.touched),'has-prefix': }">
+<div
+    class="mb-3"
+    [ngClass]="{'is-required': required}"
+>
+    <label
+        *ngIf="!noLabel"
+        class="form-label"
+        [for]="inputId"
+        [title]="title"
+    >
+        {{ title }}
+    </label>
 
-</div> -->
+    <div class="input-group mb-3">
+        <span
+            *ngIf="prefixIcon"
+            class="input-group-text"
+            [ngStyle]="{'color': iconsColor}"
+        >
+            <fundae-icon [icon]="prefixIcon"></fundae-icon>
+        </span>
+
+        <input
+            #input
+            class="form-control"
+            [ngClass]="{'is-invalid': control?.errors && control?.touched}"
+            [autocomplete]="inputType === 'number' ? 'off' : 'on'"
+            [autofocus]="autofocus"
+            [disabled]="disabled"
+            [id]="inputId"
+            [max]="max"
+            [min]="min"
+            [placeholder]="placeholder"
+            [readonly]="readonly"
+            [step]="step"
+            [type]="inputType === 'number' ? 'text' : inputType"
+            [value]="innerValue"
+            (blur)="onBlur($event)"
+            (focus)="handleFocus($event)"
+            (input)="onChange($event, true)"
+            (keypress)="handleKeyPress($event)"
+        />
+
+        <span
+            *ngIf="suffixIcon"
+            class="input-group-text suffix-icon"
+            [ngStyle]="{'color': iconsColor}"
+            (click)="onSuffixClick()"
+        >
+            <fundae-icon [icon]="suffixIcon"></fundae-icon>
+        </span>
+
+        <div class="invalid-feedback" *ngIf="control?.errors && control?.touched">
+            {{ errors[0] }}
+        </div>
+    </div>
+</div>

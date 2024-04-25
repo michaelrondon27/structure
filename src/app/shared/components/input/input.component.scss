@@ -1,1 +1,13 @@
+@import '../../styles/variables.scss';
+
 /* TODO: create style for the input */
+.suffix-icon {
+    cursor: pointer;
+}
+
+.is-required {
+    .form-label::after {
+        content: ' *';
+        color: $required-control
+    }
+}

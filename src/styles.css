@@ -2,7 +2,6 @@
 
 .scrollbar {
     overflow: auto;
-    padding: 0 10px;
 }
 
 .scrollbar::-webkit-scrollbar {

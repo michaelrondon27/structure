@@ -1,1 +1,90 @@
-<p>input-test works!</p>
+<test-nav-bar title="Input"></test-nav-bar>
+
+<div class="container-fluid test-layout">
+    <div class="row">
+        <div class="col-3 border-end pt-4 overflow-auto full-height scrollbar">
+            <tests-component-specifications
+                [componentInformation]="componentInformation"
+                [interfacesInformation]="interfacesInformation"
+                [typesInformation]="typesInformation"
+            ></tests-component-specifications>
+        </div>
+
+        <div class="col-6 scrollbar overflow-x-hidden pb-3 full-height">
+            <div class="row">
+                <div class="col-12 my-1" *ngFor="let input of inputs">
+                    <div class="card px-3">
+                        <div class=" mt-2">
+                            <fundae-input
+                                [defaultValue]="input.defaultValue"
+                                [disabled]="input.disabled"
+                                [inputType]="input.inputType"
+                                [placeholder]="input.placeholder"
+                                [prefixIcon]="input.prefixIcon"
+                                [readonly]="input.readonly"
+                                [required]="input.required"
+                                [suffixIcon]="input.suffixIcon"
+                                [title]="input.title"
+                            ></fundae-input>
+                        </div>
+
+                        <div class="card-body">
+                            <p *ngIf="input.defaultValue"><strong>Default value:</strong> {{ input.defaultValue }}</p>
+                            <p *ngIf="input.disabled"><strong>Default value:</strong> {{ input.disabled }}</p>
+                            <p *ngIf="input.inputType"><strong>Input type:</strong> {{ input.inputType }}</p>
+                            <p><strong>Placeholder:</strong> {{ input.placeholder }}</p>
+                            <p *ngIf="input.prefixIcon"><strong>Prefix Icon:</strong> {{ input.prefixIcon | json }}</p>
+                            <p *ngIf="input.readonly"><strong>Readonly:</strong> {{ input.readonly }}</p>
+                            <p *ngIf="input.required"><strong>Required:</strong> {{ input.required }}</p>
+                            <p *ngIf="input.suffixIcon"><strong>Suffix Icon:</strong> {{ input.suffixIcon | json }}</p>
+                            <p><strong>Title:</strong> {{ input.title }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <form class="col-12 my-1" [formGroup]="form">
+                    <div class="card px-3">
+                        <div class=" mt-2">
+                            <fundae-input
+                                [control]="form.controls.lastName"
+                                formControlName="lastName"
+                                placeholder="Type your last name"
+                                title="Last name"
+                            ></fundae-input>
+                        </div>
+
+                        <div class="card-body">
+                            <p><strong>control:</strong> form.controls.lastName</p>
+                            <p><strong>Form Control Name:</strong> lastName</p>
+                            <p><strong>Placeholder:</strong> Type your last name</p>
+                            <p><strong>Title:</strong> Last name</p>
+                            <p><strong>Value:</strong> {{ form.controls.lastName.value }}</p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="col-3 border-start py-4 full-height">
+            <h4>Usage Example</h4>
+
+            <ul class="list-group my-3">
+                <li class="list-group-item">
+                    <p><strong>Component:</strong></p>
+
+                    <form [formGroup]="formExample">
+                        <fundae-input
+                            [control]="formExample.controls.superhero"
+                            formControlName="superhero"
+                            placeholder="Name a superhero"
+                            [required]="true"
+                            title="Superhero"
+                        ></fundae-input>
+                    </form>
+
+                    <pre class="scrollbar">{{ componentUsageExample }}</pre>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

@@ -17,6 +17,10 @@ const routes: Routes = [
     {
         path: 'img',
         loadChildren: () => import('./img-test/img-test.module').then(m => m.ImgTestModule)
+    },
+    {
+        path: 'input',
+        loadChildren: () => import('./input-test/input-test.module').then(m => m.InputTestModule)
     }
 ];
 
