@@ -1,0 +1,91 @@
+<test-nav-bar title="Textarea"></test-nav-bar>
+
+<div class="container-fluid test-layout">
+    <div class="row">
+        <div class="col-3 border-end pt-4 overflow-auto full-height scrollbar">
+            <tests-component-specifications
+                [componentInformation]="componentInformation"
+            ></tests-component-specifications>
+        </div>
+
+        <div class="col-6 scrollbar overflow-x-hidden pb-3 full-height">
+            <div class="row">
+                <div class="col-12 my-1" *ngFor="let textarea of textareas">
+                    <div class="card px-3">
+                        <div class=" mt-2">
+                            <fundae-textarea
+                                [defaultValue]="textarea.defaultValue"
+                                [disabled]="textarea.disabled"
+                                [maxHeight]="textarea.maxHeight"
+                                [placeholder]="textarea.placeholder"
+                                [readonly]="textarea.readonly"
+                                [required]="textarea.required"
+                                [rows]="textarea.rows"
+                                [title]="textarea.title"
+                            ></fundae-textarea>
+                        </div>
+
+                        <div class="card-body">
+                            <p *ngIf="textarea.defaultValue"><strong>Default value:</strong> {{ textarea.defaultValue }}</p>
+                            <p *ngIf="textarea.disabled"><strong>Disabled:</strong> {{ textarea.disabled }}</p>
+                            <p *ngIf="textarea.maxHeight"><strong>Max height:</strong> {{ textarea.maxHeight + 'px' }}</p>
+                            <p *ngIf="textarea.placeholder"><strong>Placeholder:</strong> {{ textarea.placeholder }}</p>
+                            <p *ngIf="textarea.readonly"><strong>Readonly:</strong> {{ textarea.readonly }}</p>
+                            <p *ngIf="textarea.required"><strong>Required:</strong> {{ textarea.required }}</p>
+                            <p *ngIf="textarea.rows"><strong>Rows:</strong> {{ textarea.rows }}</p>
+                            <p><strong>Title:</strong> {{ textarea.title }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <form class="col-12 my-1" [formGroup]="form">
+                    <div class="card px-3">
+                        <div class=" mt-2">
+                            <fundae-textarea
+                                [control]="form.controls.notes"
+                                formControlName="notes"
+                                [maxLength]="50"
+                                placeholder="Type your notes"
+                                [required]="true"
+                                title="Notes"
+                            ></fundae-textarea>
+                        </div>
+
+                        <div class="card-body">
+                            <p><strong>control:</strong> form.controls.notes</p>
+                            <p><strong>Form Control Name:</strong> notes</p>
+                            <p><strong>Placeholder:</strong> Type your notes</p>
+                            <p><strong>Required:</strong> true</p>
+                            <p><strong>Title:</strong> Notes</p>
+                            <p><strong>Value:</strong> {{ form.controls.notes.value }}</p>
+                            <p><strong>Errors:</strong> {{ form.controls.notes.errors | json }}</p>
+                            <p><strong>Touched:</strong> {{ form.controls.notes.touched }}</p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="col-3 border-start py-4 full-height">
+            <h4>Usage Example</h4>
+
+            <ul class="list-group my-3">
+                <li class="list-group-item">
+                    <p><strong>Component:</strong></p>
+
+                    <form [formGroup]="formExample">
+                        <fundae-textarea
+                            [control]="formExample.controls.something"
+                            formControlName="something"
+                            placeholder="Tell me something"
+                            [required]="true"
+                            title="Something"
+                        ></fundae-textarea>
+                    </form>
+
+                    <pre class="scrollbar">{{ componentUsageExample }}</pre>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

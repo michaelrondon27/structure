@@ -10,14 +10,14 @@ import { InputType } from '@shared/types/input.type';
 
 interface InputList {
     defaultValue?: any;
-    disabled?: boolean;
-    inputType?: InputType;
-    placeholder: string;
-    prefixIcon?: Icon;
-    readonly?: boolean;
-    required?: boolean;
-    suffixIcon?: Icon;
-    title: string;
+    disabled?    : boolean;
+    inputType?   : InputType;
+    placeholder  : string;
+    prefixIcon?  : Icon;
+    readonly?    : boolean;
+    required?    : boolean;
+    suffixIcon?  : Icon;
+    title        : string;
 }
 
 @Component({

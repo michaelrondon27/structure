@@ -4,10 +4,10 @@ import { Component } from '@angular/core';
 import { CustomComponentInformation, CustomTypesInformation } from '@shared/interfaces/custom-component.interface';
 
 interface ImgList {
-    defaultImage?: string;
+    defaultImage?       : string;
     disableDefaultImage?: boolean;
-    img: string;
-    type: string;
+    img                 : string;
+    type                : string;
 }
 
 @Component({

@@ -19,21 +19,21 @@ import { ButtonTypes, Types } from '@shared/types/button.type';
 export class ButtonComponent implements OnInit, DoCheck {
 
     public classesToApply: string[] = [];
-    public loadingIcon: Icon = {
+    public loadingIcon   : Icon = {
         animation: 'spin',
         name: 'circle-notch',
         type: 'fas'
     };
 
-    @Input() public buttonType: ButtonTypes = 'btn-primary';
-    @Input() public center: boolean | string = false;
-    @Input() public icon: Icon;
-    @Input() public isDisabled: boolean = false;
-    @Input() public loading: boolean = false;
+    @Input() public buttonType : ButtonTypes = 'btn-primary';
+    @Input() public center     : boolean | string = false;
+    @Input() public icon       : Icon;
+    @Input() public isDisabled : boolean = false;
+    @Input() public loading    : boolean = false;
     @Input() public loadingText: string = 'loading';
-    @Input() public name: string;
-    @Input() public rounded: boolean | string = false;
-    @Input() public type: Types = 'button';
+    @Input() public name       : string;
+    @Input() public rounded    : boolean | string = false;
+    @Input() public type       : Types = 'button';
 
     @Output() buttonClick: EventEmitter<void> = new EventEmitter<void>();
 

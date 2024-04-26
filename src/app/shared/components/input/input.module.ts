@@ -1,6 +1,5 @@
 import { NgModule } from "@angular/core";
 import { CommonModule, DecimalPipe } from "@angular/common";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 // Components
 import { InputComponent } from "./input.component";
@@ -17,10 +16,7 @@ import { FundaeIconModule } from "../icon/icon.module";
         FundaeIconModule
     ],
     exports: [
-        CommonModule,
-        FormsModule,
-        InputComponent,
-        ReactiveFormsModule
+        InputComponent
     ],
     providers: [
         DecimalPipe

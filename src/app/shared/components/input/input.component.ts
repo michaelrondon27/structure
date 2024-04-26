@@ -34,38 +34,38 @@ export class InputComponent extends AutoDestroy implements ControlValueAccessor,
     // Input count for id and label "for", increase by 1 when instance a new InputComponent, to avoid passing always the inputId prop
     static inputCount: number = 0;
 
-    public errors: string[] = [];
+    public errors    : string[] = [];
     public innerValue: any = '';
 
-    private decimalMark: ',' | '.' = ',';
-    private htmlElement?: HTMLInputElement;
+    private decimalMark  : ',' | '.' = ',';
+    private htmlElement  : HTMLInputElement;
     private previousValue: any;
-    private touched = false;
+    private touched      : boolean = false;
 
-    @Input() autofocus: boolean | string = false;
-    @Input() control: AbstractControl<any, any>;
-    @Input() decimalsNumber: number = 2;
-    @Input() defaultValue: any;
-    @Input() disabled: boolean = false;
-    @Input() formatNumber: boolean = true;
-    @Input() formControlName?: string;
-    @Input() iconsColor: string = '#CECECE';
-    @Input() inputId: string = `input-${ InputComponent.inputCount }`;
-    @Input() inputType: InputType = 'text';
-    @Input() max?: number;
-    @Input() min?: number;
-    @Input() noLabel: boolean | string = false;
-    @Input() placeholder?: string = '';
-    @Input() prefixIcon?: Icon;
-    @Input() readonly: boolean = false;
-    @Input() required: boolean | string = false;
-    @Input() step?: number;
-    @Input() suffixIcon?: Icon;
-    @Input() title: string;
+    @Input() public autofocus       : boolean | string = false;
+    @Input() public control         : AbstractControl<any, any>;
+    @Input() public decimalsNumber  : number = 2;
+    @Input() public defaultValue    : any;
+    @Input() public disabled        : boolean = false;
+    @Input() public formatNumber    : boolean = true;
+    @Input() public formControlName?: string;
+    @Input() public iconsColor      : string = '#CECECE';
+    @Input() public inputId         : string = `input-${ InputComponent.inputCount }`;
+    @Input() public inputType       : InputType = 'text';
+    @Input() public max?            : number;
+    @Input() public min?            : number;
+    @Input() public noLabel         : boolean | string = false;
+    @Input() public placeholder?    : string = '';
+    @Input() public prefixIcon?     : Icon;
+    @Input() public readonly        : boolean = false;
+    @Input() public required        : boolean | string = false;
+    @Input() public step?           : number;
+    @Input() public suffixIcon?     : Icon;
+    @Input() public title           : string;
 
-    @Output() suffixClick: EventEmitter<void> = new EventEmitter<void>();
+    @Output() public suffixClick: EventEmitter<void> = new EventEmitter<void>();
 
-    @ViewChild('input', { static: true }) inputRef?: ElementRef;
+    @ViewChild('input', { static: true }) public inputRef?: ElementRef;
 
     constructor(
         private decimalPipe: DecimalPipe
@@ -86,6 +86,7 @@ export class InputComponent extends AutoDestroy implements ControlValueAccessor,
             takeUntil(this.destroyed$)
         ).subscribe((status: FormControlStatus) => {
             this.markAsTouched();
+
             if (status === 'INVALID' && this.control?.touched) {
                 this.manageErrors();
             }
@@ -220,16 +221,6 @@ export class InputComponent extends AutoDestroy implements ControlValueAccessor,
     }
 
     /**
-     * Function to set the touched of the control to true
-     */
-    private markAsTouched(): void{
-        if(!this.touched){
-          this.touched = true;
-          this.onTouched();
-        }
-    }
-
-    /**
      * We loop into an array of errors and add the validation messages to show in the template
      */
     manageErrors = () => {
@@ -286,6 +277,16 @@ export class InputComponent extends AutoDestroy implements ControlValueAccessor,
                     }
                 }
             });
+        }
+    }
+
+    /**
+     * Function to set the touched of the control to true
+     */
+    private markAsTouched(): void{
+        if(!this.touched){
+          this.touched = true;
+          this.onTouched();
         }
     }
 

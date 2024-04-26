@@ -4,11 +4,11 @@ import { FlipProp, PullProp, RotateProp, SizeProp } from '@fortawesome/fontaweso
 
 export interface Icon {
     animation?: AnimationProp;
-    border?: boolean;
-    flip?: FlipProp;
-    name: IconName;
-    pull?: PullProp;
-    rotate?: RotateProp;
-    size?: SizeProp;
-    type: IconPrefix;
+    border?   : boolean;
+    flip?     : FlipProp;
+    name      : IconName;
+    pull?     : PullProp;
+    rotate?   : RotateProp;
+    size?     : SizeProp;
+    type      : IconPrefix;
 }

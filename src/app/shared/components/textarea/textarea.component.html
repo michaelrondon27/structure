@@ -1,0 +1,40 @@
+<div class="mb-3" [ngClass]="{ 'is-required': required }">
+    <label
+        *ngIf="!noLabel"
+        class="form-label"
+        [for]="inputId"
+        [title]="title"
+    >
+        {{ title }}
+    </label>
+
+    <textarea
+        #input
+        class="form-control"
+        [autofocus]="autofocus"
+        [ngClass]="{'is-invalid': control?.errors && control?.touched}"
+        [disabled]="disabled"
+        [id]="inputId"
+        [ngStyle]="{ 'max-height': maxHeight ? ((maxHeight- 15) + 'px') : 'auto' }"
+        [placeholder]="placeholder"
+        [readonly]="readonly"
+        [rows]="rows"
+        [value]="innerValue"
+        (input)="onChange($event, input.value)"
+    ></textarea>
+
+
+    <div class="messages">
+        <div
+            *ngIf="maxLength"
+            class="text-length"
+            [ngClass]="{ 'has-errors': errors.length && control?.touched }"
+            >
+            {{ control?.value?.length || 0 }}/{{ maxLength }}
+        </div>
+    </div>
+
+    <div class="invalid-feedback" *ngIf="control?.errors && control?.touched">
+        {{ errors[0] }}
+    </div>
+</div>

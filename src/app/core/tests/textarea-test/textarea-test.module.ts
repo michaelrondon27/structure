@@ -3,27 +3,27 @@ import { CommonModule } from "@angular/common";
 import { ReactiveFormsModule } from "@angular/forms";
 
 // Components
-import { InputTestComponent } from "./input-test.component";
+import { TextareaTestComponent } from "./textarea-test.component";
 
 // Modules
 import { ComponentSpecificationsModule } from "../components/component-specifications/component-specifications.module";
-import { FundaeInputModule } from "@shared/components/input/input.module";
+import { FundaeTextareaModule } from "@shared/components/textarea/textarea.module";
 import { NavBarTestModule } from "../components/nav-bar-test/nav-bar-test.module";
 
 // Routes
-import { InputTestRoutingModule } from "./input-test-routing.module";
+import { TextareaTestRoutingModule } from "./textarea-test-routing.module";
 
 @NgModule({
     declarations: [
-        InputTestComponent
+        TextareaTestComponent
     ],
     imports: [
         CommonModule,
         ComponentSpecificationsModule,
-        InputTestRoutingModule,
-        FundaeInputModule,
+        FundaeTextareaModule,
         NavBarTestModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        TextareaTestRoutingModule
     ]
 })
-export class InputTestModule { }
+export class TextareaTestModule { }

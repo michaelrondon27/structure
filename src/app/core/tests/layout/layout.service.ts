@@ -33,6 +33,12 @@ export class LayoutTestService {
             image: 'assets/media/tests/input.png',
             route: 'input',
             title: 'Input'
+        },
+        {
+            id: 'textarea',
+            image: 'assets/media/tests/textarea.png',
+            route: 'textarea',
+            title: 'Textarea'
         }
     ];
 

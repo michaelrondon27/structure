@@ -21,6 +21,10 @@ const routes: Routes = [
     {
         path: 'input',
         loadChildren: () => import('./input-test/input-test.module').then(m => m.InputTestModule)
+    },
+    {
+        path: 'textarea',
+        loadChildren: () => import('./textarea-test/textarea-test.module').then(m => m.TextareaTestModule)
     }
 ];
 

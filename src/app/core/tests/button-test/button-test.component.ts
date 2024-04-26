@@ -13,12 +13,12 @@ import { ButtonTypes } from '@shared/types/button.type';
 
 interface ButtonsList {
     buttonClick?: boolean;
-    buttonType: ButtonTypes;
-    icon?: Icon;
-    isDisabled?: boolean;
-    loading?: boolean;
+    buttonType  : ButtonTypes;
+    icon?       : Icon;
+    isDisabled? : boolean;
+    loading?    : boolean;
     loadingText?: string;
-    name: string;
+    name        : string;
 }
 
 @Component({
